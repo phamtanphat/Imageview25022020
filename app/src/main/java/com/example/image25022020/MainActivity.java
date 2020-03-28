@@ -3,6 +3,8 @@ package com.example.image25022020;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     int mCount = 0;
     int mIndexRandom = 0;
     Random mRandom;
+    CountDownTimer mCountDownTimer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,5 +66,30 @@ public class MainActivity extends AppCompatActivity {
                 mImg.setImageResource(mArrayImageIntegers.get(mIndexRandom));
             }
         });
+
+        mBtnAutoNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mCountDownTimer != null){
+                    mCountDownTimer.cancel();
+                    mCountDownTimer = null;
+                }
+                mCountDownTimer = new CountDownTimer(4000,1000) {
+                    @Override
+                    public void onTick(long l) {
+                        mCount = mCount >= mArrayImageIntegers.size() - 1 ? 0 : ++mCount;
+                        mImg.setImageResource(mArrayImageIntegers.get(mCount));
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        mCountDownTimer.start();
+                    }
+                };
+                mCountDownTimer.start();
+            }
+        });
+        // Task 1 : Lam chức năng auto previous
+        // Task 2 : làm chức năng pause auto
     }
 }
