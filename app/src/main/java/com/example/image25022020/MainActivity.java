@@ -38,14 +38,18 @@ public class MainActivity extends AppCompatActivity {
         mBtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                count = count >= mArrayImageIntegers.size() - 1 ? 0 : ++count;
-                if (count >= mArrayImageIntegers.size() - 1){
-                    count = 0;
-                }
-                mImg.setImageResource(mArrayImageIntegers.get(++count));
+                count = count >= mArrayImageIntegers.size() - 1 ? 0 : ++count;
+                mImg.setImageResource(mArrayImageIntegers.get(count));
             }
         });
 
+        mBtnPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                count = count <= 0 ? mArrayImageIntegers.size() - 1 : --count;
+                mImg.setImageResource(mArrayImageIntegers.get(count));
+            }
+        });
 
     }
 }
