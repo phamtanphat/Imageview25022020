@@ -8,13 +8,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
     ImageView mImg;
     Button mBtnNext,mBtnPrevious,mBtnRandom,mBtnAutoNext,mBtnAutoPrevious;
     ArrayList<Integer> mArrayImageIntegers;
-    int count = 0;
+    int mCount = 0;
+    int mIndexRandom = 0;
+    Random mRandom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,18 +41,27 @@ public class MainActivity extends AppCompatActivity {
         mBtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                count = count >= mArrayImageIntegers.size() - 1 ? 0 : ++count;
-                mImg.setImageResource(mArrayImageIntegers.get(count));
+                mCount = mCount >= mArrayImageIntegers.size() - 1 ? 0 : ++mCount;
+                mImg.setImageResource(mArrayImageIntegers.get(mCount));
             }
         });
 
         mBtnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                count = count <= 0 ? mArrayImageIntegers.size() - 1 : --count;
-                mImg.setImageResource(mArrayImageIntegers.get(count));
+                mCount = mCount <= 0 ? mArrayImageIntegers.size() - 1 : --mCount;
+                mImg.setImageResource(mArrayImageIntegers.get(mCount));
             }
         });
 
+        mBtnRandom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mRandom = new Random();
+                mIndexRandom = mRandom.nextInt(mArrayImageIntegers.size());
+                mCount = mIndexRandom;
+                mImg.setImageResource(mArrayImageIntegers.get(mIndexRandom));
+            }
+        });
     }
 }
